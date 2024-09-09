@@ -3,29 +3,50 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+
 class ArticleModel extends Model
 {
     protected $table      = 'articles';
     protected $primaryKey = 'idArticle';
-    protected $allowedFields = ['idcategory', 'nomarticle', 'description', 'qtestock', 'prix', 'image'];
-
-    public function uploadImage($file)
+    protected $allowedFields = ['idcategory', 'nomarticle', 'image', 'description', 'qtestock', 'prix'];
+    public function getAllArticlesWithCategory()
     {
-        if ($file->isValid() && !$file->hasMoved()) {
-            // Déplacer la nouvelle image avec un nouveau nom généré aléatoirement
-            $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'uploads', $newName);
-            return $newName;
-        }
+        $db = \Config\Database::connect();
+        $builder = $db->table('articles');
+        $builder->select('articles.*, category.nomcategory as nomcategory');
+        $builder->join('category', 'category.idcategory = articles.idcategory');
+        $query = $builder->get();
 
-        return null;
+        return $query->getResultArray();
     }
-    // app/Models/ArticleModel.php
+    public function searchByName($searchTerm)
+    {
+        return $this->like('nomarticle', $searchTerm)->findAll();
+    }
+    
+    public function getAllArticles()
+    {
+        return $this->findAll(); 
+    }
+    public function searchArticles($searchTerm)
+    {
+        
+        $this->like('nomarticle', $searchTerm);
+        $this->orLike('description', $searchTerm);
 
-public function searchByName($searchTerm)
-{
-    // Utilisez la méthode `like` pour rechercher des articles par nom
-    return $this->like('nomarticle', $searchTerm)->findAll();
-}
+       
+        $query = $this->get();
 
+        
+        return $query->getResult();
+    }
+    public function getArticlesByCategoryId($categoryId)
+    {
+        return $this->where('idcategory', $categoryId)
+                    ->findAll();
+    }
+  
+    
+
+    
 }

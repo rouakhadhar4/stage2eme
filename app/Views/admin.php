@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f4f4f4; /* Fond plus clair */
+            background-color: #f4f4f4; 
         }
 
         .container {
@@ -20,21 +20,21 @@
         .card {
             width: 400px;
             border: none;
-            border-radius: 15px; /* Coins plus arrondis */
+            border-radius: 15px; 
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
         .card-header {
-            background-color: #3498db; /* Bleu plus foncé */
+            background-color: #0046fd; 
             color: white;
             text-align: center;
             padding: 25px;
-            border-top-left-radius: 20px; /* Coins plus arrondis */
-            border-top-right-radius: 20px; /* Coins plus arrondis */
+            border-top-left-radius: 20px; 
+            border-top-right-radius: 20px; 
         }
 
         .card-body {
-            padding: 50px; /* Un peu moins de marge intérieure */
+            padding: 50px; 
         }
 
         .form-label {
@@ -42,12 +42,12 @@
         }
 
         .btn-primary {
-            background-color: #3498db; /* Bleu plus foncé */
+            background-color:#0046fd; 
             border: none;
         }
 
         .btn-primary:hover {
-            background-color: #3498db; /* Bleu plus foncé */
+            background-color: #0046fd; 
         }
     </style>
 </head>
@@ -65,7 +65,7 @@
                 </div>
             <?php endif; ?>
             
-            <!-- Votre formulaire Bootstrap -->
+         
             <form action="<?= site_url('/admin/login'); ?>" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username:</label>

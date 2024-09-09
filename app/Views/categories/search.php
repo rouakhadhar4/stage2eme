@@ -1,4 +1,4 @@
-<!-- app/Views/categories/search.php -->
+
 
 <div class="container mt-3">
     <div class="d-flex justify-content-end">

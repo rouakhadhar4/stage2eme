@@ -9,10 +9,9 @@ class CategoryModel extends Model
     protected $table      = 'category'; 
     protected $primaryKey = 'idcategory';  
     protected $allowedFields = ['nomcategory'];  
+
     public function searchByName($searchTerm)
     {
-    
         return $this->like('nomcategory', $searchTerm)->findAll();
     }
 }
-

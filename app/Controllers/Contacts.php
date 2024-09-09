@@ -1,15 +1,16 @@
-<?
+<?php
+
 namespace App\Controllers;
 
-use App\Models\ContactsModel;
+use App\Models\ContactModel;
 
 class Contacts extends BaseController
 {
     public function index()
     {
-        $model = new ContactsModel();
+        $model = new ContactModel();
         $data['contacts'] = $model->findAll();
-
+        
         return view('contacts/index', $data);
     }
 
@@ -20,49 +21,41 @@ class Contacts extends BaseController
 
     public function store()
     {
-        $model = new ContactsModel();
-
+        $model = new ContactModel();
         $data = [
-            'objet'   => $this->request->getPost('objet'),
-            'email'   => $this->request->getPost('email'),
-            'message' => $this->request->getPost('message'),
+            'objet' => $this->request->getVar('objet'),
+            'email' => $this->request->getVar('email'),
+            'message' => $this->request->getVar('message')
         ];
-
         $model->insert($data);
-
-        return redirect()->to('/contacts');
-    }
+        return redirect()->to('contacts/create')->with('success', 'Message sent successfully!');
+}
+    
 
     public function edit($id = null)
     {
-        $model = new ContactsModel();
+        $model = new ContactModel();
         $data['contact'] = $model->find($id);
-
         return view('contacts/edit', $data);
     }
 
     public function update()
     {
-        $model = new ContactsModel();
-
+        $model = new ContactModel();
+        $id = $this->request->getVar('id');
         $data = [
-            'objet'   => $this->request->getPost('objet'),
-            'email'   => $this->request->getPost('email'),
-            'message' => $this->request->getPost('message'),
+            'objet' => $this->request->getVar('objet'),
+            'email' => $this->request->getVar('email'),
+            'message' => $this->request->getVar('message')
         ];
-
-        $id = $this->request->getPost('idcontact');
-
         $model->update($id, $data);
-
         return redirect()->to('/contacts');
     }
 
     public function delete($id = null)
     {
-        $model = new ContactsModel();
+        $model = new ContactModel();
         $model->delete($id);
-
         return redirect()->to('/contacts');
     }
 }
